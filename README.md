@@ -30,8 +30,8 @@ Tweak and add the following to your site manifest:
 node 'server.example.com' {
   class {'samba::server':
     workgroup     => 'example',
-    server_string => "Example Samba Server",
-    interfaces    => "eth0 lo",
+    server_string => 'Example Samba Server',
+    interfaces    => 'eth0 lo',
     security      => 'share'
   }
 
@@ -40,7 +40,7 @@ node 'server.example.com' {
     path                 => '/path/to/share',
     guest_only           => true,
     guest_ok             => true,
-    guest_account        => "guest",
+    guest_account        => 'guest',
     browsable            => false,
     create_mask          => 0777,
     force_create_mask    => 0777,
@@ -58,15 +58,15 @@ If you want join Samba server to Active Directory.
 ```puppet
 node 'server.example.com' {
   class {'samba::server':
-    workgroup => 'example',
-    server_string => "Example Samba Server",
-    interfaces => "eth0 lo",
-    security => 'ads'
+    workgroup     => 'example',
+    server_string => 'Example Samba Server',
+    interfaces    => 'eth0 lo',
+    security      => 'ads'
   }
 
   samba::server::share {'ri-storage':
     comment           => 'RBTH User Storage',
-    path              => "$smb_share",
+    path              => $::smb_share,
     browsable         => true,
     writable          => true,
     create_mask       => 0770,
@@ -78,7 +78,7 @@ node 'server.example.com' {
       winbind_pass    => $::admin_password,
       realm           => 'EXAMPLE.COM',
       nsswitch        => true,
-      target_ou       => "Nix_Mashine"
+      target_ou       => 'Nix_Mashine'
   }
 }
 ```
